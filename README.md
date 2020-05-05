@@ -9,9 +9,23 @@
 > Loading-> Linking-> Initialization  
 > Loading, Linking, Initialization, 统一叫Class Loader SubSystem(类加载子系统)  
 ### Loading
-> Bootstrap Class Loader(引导 类加载器) `Bootstrap Class Loader只能加载包名为java/javax/sun开头的class`  
-> Extension Class Loader(扩展 类加载器) `会加载java.ext.dirs的系统属性设定的文件夹的jar 和 jdk目录下jre/lib/ext文件夹的jar`  
-> Application/System Class Loader(应用/系统 类加载器) `Application Class Loader加载自定义class`
+* ExtClassLoader和AppClassLoader处于同级, 均继承自URLClassLoader. 
+* URLClassLoader继承自SecureClassLoader，SecureClassLoader继承自ClassLoader，ClassLoader即为最终的顶级抽象类。
+* 自定义ClassLoader也可以继承URLClassLoader. 
+> Bootstrap Class Loader(引导 类加载器)  
+> `Bootstrap Class Loader加载JDK中的核心类库, 如：rt.jar/resources.jar等`  
+
+> Extension Class Loader(扩展 类加载器).     
+> `加载java.ext.dirs的系统属性设定的文件夹的jar 和 jdk目录下jre/lib/ext文件夹下的jar`  
+
+> Application/System Class Loader(应用/系统 类加载器).   
+> `Application Class Loader加载来自在java命令中的classpath` 
+
+> User-Defined Class Loader(自定义 类加载器). 作用:  
+> 1. `隔离class loader`
+> 2. `修改load的方式`
+> 3. `扩展class loader`
+
 * Loading 做了3件事: 
 1. 根据类名, 以binary byte stream 加载 (二进制字节流)
 2. 将binary byte stream 转化为Method Area(方法区)运行时的数据结构
@@ -33,14 +47,17 @@
 * `<clinit>()`是javac编译时, 收集class中**static**`变量`/`代码块中语句`后生成. 如果方法中没有static, 就没有`<clinit>()`.
 * 一个class的`<clinit>()`在多线程下会被同步加锁. 保证每个类只会加载一次.
 
-## Runtime Data Areas
+## Runtime Data Areas(运行时数据区)
 ### Method Area
 > 存放class信息&常量&字面量
 1. 
 2. Constant Pool
-### Heap Area
-### Stack Area
-### PC Registers
+### Heap Area `整个jvm(进程)一份`
+> 堆解决数据存储问题, 即数据怎么放/放哪里. 主体都放堆空间.
+### Stack Area `每个线程一份`
+> 栈解决程序运行问题, 即程序如何处理数据
+### Program Conter Registers`每个线程一份`
+> 存储下一条指令地址(cpu切走后切回来会根据PC Registers来确定执行的位置)
 ### Native Method Stack
 
 ## Execution Engine(执行引擎)
@@ -49,4 +66,8 @@
 ### JIT Compiler
 ### Garbage Collection
 
-## 
+## tips
+* 双亲委派机制 
+> 当一个ClassLoader收到加载请求, 它不会自己加载, 而去向上委派父加载器, 一直往上委派
+
+* 优化重点对象: Method Area, Heap Area
