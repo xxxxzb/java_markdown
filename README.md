@@ -5,10 +5,10 @@
 > .class文件进来, `Class Loader SubSystem`-> `Runtime Data Areas`  
 > .class文件以te
 
-## Class Loader SubSystem
+### 1. Class Loader SubSystem
 > Loading-> Linking-> Initialization  
 > Loading, Linking, Initialization, 统一叫Class Loader SubSystem(类加载子系统)  
-### Loading
+#### Loading
 * ExtClassLoader和AppClassLoader处于同级, 均继承自URLClassLoader. 
 * URLClassLoader继承自SecureClassLoader，SecureClassLoader继承自ClassLoader，ClassLoader即为最终的顶级抽象类。
 * 自定义ClassLoader也可以继承URLClassLoader. 
@@ -31,7 +31,7 @@
 2. 将binary byte stream 转化为Method Area(方法区)运行时的数据结构
 3. 在内存中生成class对象(在Method Area, 作为该class各种数据的访问入口)
 
-### Linking
+#### Linking
 * Linking 做了3件事: 
 1. Verify(验证)
     > * 验证class的正确性, 不会危害jvm自身安全
@@ -42,31 +42,31 @@
 3. Resolve(解析)
     > 将Constant Pool(常量池)的符号引用转换为直接引用的过程.  
     * resolve会在Initialization后执行
-### Initialization
+#### Initialization
 > 执行`<clinit>()`
 * `<clinit>()`是javac编译时, 收集class中**static**`变量`/`代码块中语句`后生成. 如果方法中没有static, 就没有`<clinit>()`.
 * 一个class的`<clinit>()`在多线程下会被同步加锁. 保证每个类只会加载一次.
 
-## Runtime Data Areas(运行时数据区)
-### Method Area
+### 2. Runtime Data Areas(运行时数据区)
+#### Method Area
 > 存放class信息&常量&字面量
 1. 
 2. Constant Pool
-### Heap Area `整个jvm(进程)一份`
+#### Heap Area `整个jvm(进程)一份`
 > 堆解决数据存储问题, 即数据怎么放/放哪里. 主体都放堆空间.
-### Stack Area `每个线程一份`
+#### Stack Area `每个线程一份`
 > 栈解决程序运行问题, 即程序如何处理数据
-### Program Conter Registers`每个线程一份`
+#### Program Conter Registers`每个线程一份`
 > 存储下一条指令地址(cpu切走后切回来会根据PC Registers来确定执行的位置)
-### Native Method Stack
+#### Native Method Stack
 
-## Execution Engine(执行引擎)
-### Interpreter
+### 3. Execution Engine(执行引擎)
+#### Interpreter
 1. Interpreter
-### JIT Compiler
-### Garbage Collection
+#### JIT Compiler
+#### Garbage Collection
 
-## tips
+### tips
 * 双亲委派机制 
 > 当一个ClassLoader收到加载请求, 它不会自己加载, 而去向上委派父加载器, 一直往上委派
 
