@@ -1,7 +1,7 @@
 # java_markdown 
 * .java文件->编译(javac)->.class文件->.class文件->`jvm`
 ---
-# jvm
+## jvm
 > .class文件进来, `Class Loader SubSystem`-> `Runtime Data Areas`  
 > .class文件以te
 
@@ -71,3 +71,24 @@
 > 当一个ClassLoader收到加载请求, 它不会自己加载, 而去向上委派父加载器, 一直往上委派
 
 * 优化重点对象: Method Area, Heap Area
+---
+
+## Thread
+- 线程状态:  
+New, Runnable, Blocked, Waiting, Timed Waiting, Terminated
+- 线程中断:  
+interrupt, 标志位
+- 线程通信:  
+wait/notify (局限:对顺序有要求. 如果notify先执行,会永远waiting),   
+park/unpark (局限:不能写在`synchronized`同步代码块中)  
+ps: 线程判断中,要用while代替if,防止cpu伪唤醒 
+- 线程封闭:  
+ThreadLocal, 栈封闭(局部变量)
+- 可见性问题:   
+volatile (禁止cpu缓存和jvm重排序)
+- 原子操作:   
+CAS机制 `Compare and swap`   
+(jdk底层提供unsafe.compareAndSwapInt, 很多Atomic..的API都调用这个.  
+视频看网易java高级开发第一章1.2.2[43:00])
+
+
