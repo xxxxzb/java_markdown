@@ -90,5 +90,20 @@ volatile (禁止cpu缓存和jvm重排序)
 CAS机制 `Compare and swap`   
 (jdk底层提供unsafe.compareAndSwapInt, 很多Atomic..的API都调用这个.  
 视频看网易java高级开发第一章1.2.2[43:00])
+---
+## 锁
+- 锁的概念:  
+自旋锁: CAS+循环  
+悲观锁: 从读数据就加锁    
+乐观锁: CAS  
+独享锁: 写锁  
+共享锁: 读锁  
+可重入锁: 线程拿到锁后, 可自由进入同一把锁的其他同步代码  
+公平锁, 非公平锁: 争抢锁的顺序. FIFO为公平, 否则是所有一起抢  
+- 锁的几种实现:  
+CAS: Compare and Swap  
+synchronized:  
+Lock: 
+
 
 
