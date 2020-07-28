@@ -91,6 +91,7 @@ CAS机制 `Compare and swap`
 (jdk底层提供unsafe.compareAndSwapInt, 很多Atomic..的API都调用这个.  
 视频看网易java高级开发第一章1.2.2[43:00])
 ---
+
 ## 锁
 - 锁的概念:  
 自旋锁: CAS+循环  
@@ -103,7 +104,43 @@ CAS机制 `Compare and swap`
 - 锁的几种实现:  
 CAS: Compare and Swap  
 synchronized:  
-Lock: 
+Lock:  
+---
+
+## JCU(java.util.concurrent)
+- AQS```Abstract Queus Synchronize```抽象队列同步器:  
+... //todo 
+... //todo 
+... //todo 
+... //todo 
+... //todo 
+- ForkJoin
+
+--- 
+## 网络
+- 网络7层模型:   
+物理层: 物理介质  
+数据链路层: 校验/确认/重发  
+网络层: IP协议  
+传输层: TCP/UDP协议  
+会话层: 建立会话/管理会话  
+表示层: 数据转换/压缩  
+应用层: 用户进程  
+
+TCP: 3次握手/4次挥手  
+UDP: 无连接/数据不可靠/快  
+Socket: 操作系统提供的编程接口  
+
+BIO: ```Blocking IO```阻塞  
+NIO: ```non-Blocking IO``` NIO是由Buffer,Channel,Selector三大核心组成
+
+- Netty: 网络框架
+netty实现Reactor线程模型(创造2个线程池,Main线程池负责接受accept, Sub线程池负责处理io)
+Reactor模型有4个核心概念:  
+1. Resources资源(请求/任务)
+2. Sync Even Demultiplexer同步事件复用器
+3. Dispatcher分配器
+4. Request Handler请求处理器
 
 
 
